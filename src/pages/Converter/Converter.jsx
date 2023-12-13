@@ -1,20 +1,21 @@
+import Table from './Table';
 import Form from './Form';
 import Button from './Button';
-import Table from './Table';
+import SqlGenerator from './SqlGenerator';
 
 const Converter = () => {
   return (
-    <main className="container-fluid p-3" style={{ overflowX: 'hidden' }}>
-      <Form />
-      {/* <div className="row">
-        <div className="col-sm-7">
+    <main className="container-fluid overflow-hidden">
+      <div className="row">
+        <div className="col-sm-6">
           <Table />
         </div>
-        <div className="col-sm-5">
+        <div className="col-sm-6">
+          <Form />
           <Button />
+          <SqlGenerator />
         </div>
-      </div> */}
-      <Table />
+      </div>
     </main>
   );
 };

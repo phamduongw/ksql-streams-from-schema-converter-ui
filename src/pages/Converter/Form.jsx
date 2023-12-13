@@ -33,7 +33,7 @@ const Form = () => {
   };
 
   return (
-    <div className="row gx-5">
+    <div className="row mt-2">
       <div className="col">
         <input
           type="text"
@@ -61,14 +61,14 @@ const Form = () => {
           <option value="xml">XML</option>
           <option value="blob">BLOB</option>
         </select>
+      </div>
+      <div className={`col ${procType == 'blob' ? 'd-block' : 'd-none'}`}>
         <input
           type="text"
           placeholder="BLOB delimiter"
           value={blobDelimiter}
           onChange={handleBLOBDelimiter}
-          className={`form-control ${
-            procType == 'blob' ? 'visible' : 'invisible'
-          }`}
+          className="form-control"
         />
       </div>
     </div>
