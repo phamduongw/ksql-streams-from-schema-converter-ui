@@ -58,11 +58,11 @@ const Form = () => {
           onChange={handleChangeDataType}
           className="form-select"
         >
-          <option value="xml">XML</option>
-          <option value="blob">BLOB</option>
+          <option value="XML">XML</option>
+          <option value="BLOB">BLOB</option>
         </select>
       </div>
-      <div className={`col ${procType == 'blob' ? 'd-block' : 'd-none'}`}>
+      <div className={`col ${procType === 'BLOB' ? 'd-block' : 'd-none'}`}>
         <input
           type="text"
           placeholder="BLOB delimiter"

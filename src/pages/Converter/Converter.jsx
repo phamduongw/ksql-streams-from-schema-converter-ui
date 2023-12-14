@@ -7,10 +7,10 @@ const Converter = () => {
   return (
     <main className="container-fluid overflow-hidden">
       <div className="row">
-        <div className="col-sm-6">
+        <div className="col-sm-7">
           <Table />
         </div>
-        <div className="col-sm-6">
+        <div className="col-sm-5">
           <Form />
           <Button />
           <SqlGenerator />

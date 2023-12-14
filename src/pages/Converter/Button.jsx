@@ -4,23 +4,64 @@ import {
   procNameSelector,
   schemaNameSelector,
   procTypeSelector,
-  setEtlData,
+  blobDelimiterSelector,
+  procDataSelector,
+  sqlStatementSelector,
+  setProcData,
+  setCopyOfProcData,
+  setSqlStatement,
 } from '~/redux/slices/converterSlice';
 
-import { getEtlData } from '~/services';
-import { sqlStatementSelector } from '../../redux/slices/converterSlice';
+import { getProcDataByKey, getEtlPipeline } from '~/services';
 
-const Button = () => {
+const Generate = () => {
   const dispatch = useDispatch();
 
   const procName = useSelector(procNameSelector);
   const schemaName = useSelector(schemaNameSelector);
   const procType = useSelector(procTypeSelector);
+  const blobDelimiter = useSelector(blobDelimiterSelector);
+  const procData = useSelector(procDataSelector);
+
+  const handleGetEtlData = async () => {
+    let { stmtRaw, stmtMapped, stmtMultival, stmtSink } = await getEtlPipeline(
+      procName,
+      schemaName,
+      procType,
+      blobDelimiter,
+      procData,
+    );
+
+    const statements = [stmtRaw, stmtMapped, stmtMultival, stmtSink].filter(
+      (stmt) => stmt !== null,
+    );
+
+    dispatch(setSqlStatement(statements.join('\n')));
+  };
+
+  return (
+    <div className="col p-2 d-flex justify-content-center">
+      <button
+        type="button"
+        onClick={handleGetEtlData}
+        className="btn btn-secondary"
+      >
+        Generate ETL pipeline
+      </button>
+    </div>
+  );
+};
+
+const Button = () => {
+  const dispatch = useDispatch();
+
+  const schemaName = useSelector(schemaNameSelector);
   const sqlStatement = useSelector(sqlStatementSelector);
 
   const handleGetEtlData = async () => {
-    let data = await getEtlData(procName, schemaName, procType);
-    dispatch(setEtlData(data));
+    let data = await getProcDataByKey(schemaName);
+    dispatch(setProcData(data));
+    dispatch(setCopyOfProcData());
   };
 
   const handleDownload = () => {
@@ -28,7 +69,7 @@ const Button = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'data.sql';
+    link.download = `${schemaName.toUpperCase()}.sql`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -46,11 +87,7 @@ const Button = () => {
           Get ETL data
         </button>
       </div>
-      <div className="col p-2 d-flex justify-content-center">
-        <button type="button" className="btn btn-secondary">
-          Generate ETL pipeline
-        </button>
-      </div>
+      <Generate />
       <div className="col p-2 d-flex justify-content-center">
         <button
           type="button"
