@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  copyOfProcDataSelector,
-  updateProcData,
-} from '~/redux/slices/converterSlice';
+import { copyOfProcDataSelector, updateProcData } from '~/redux/converterSlice';
 
 const FIELDS = [
   'Name',
@@ -115,7 +112,7 @@ const DatalistField = ({ index, field, initValue, list }) => {
 const Table = () => {
   const copyOfProcData = useSelector(copyOfProcDataSelector);
   return (
-    <div className="table-responsive">
+    <div className="table-responsive" style={{ maxHeight: '100vh' }}>
       <table className="table">
         <thead>
           <tr>

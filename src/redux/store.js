@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import converterSlice from './slices/converterSlice';
+import converterSlice from './converterSlice';
 
 const reducer = combineReducers({
   converter: converterSlice,

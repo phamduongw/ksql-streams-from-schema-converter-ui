@@ -7,7 +7,7 @@ const converterSlice = createSlice({
     procName: '',
     schemaName: '',
     procType: 'XML',
-    blobDelimiter: '',
+    blobDelim: '',
     procData: [],
     copyOfProcData: [],
     sqlStatement: '',
@@ -23,7 +23,7 @@ const converterSlice = createSlice({
       state.procType = action.payload;
     },
     setBlobDelimiter: (state, action) => {
-      state.blobDelimiter = action.payload;
+      state.blobDelim = action.payload;
     },
     setProcData: (state, action) => {
       state.procData = action.payload;
@@ -33,9 +33,9 @@ const converterSlice = createSlice({
       const field = action.payload.field;
       const value = action.payload.value;
 
-      if (field === 'aliases') {
+      if (field == 'aliases') {
         state.procData[index][field][0] = value;
-      } else if (field === 'type') {
+      } else if (field == 'type') {
         state.procData[index][field][1] = value;
       } else {
         state.procData[index][field] = value;
@@ -66,7 +66,7 @@ export const {
 export const procNameSelector = (state) => state.converter.procName;
 export const schemaNameSelector = (state) => state.converter.schemaName;
 export const procTypeSelector = (state) => state.converter.procType;
-export const blobDelimiterSelector = (state) => state.converter.blobDelimiter;
+export const blobDelimSelector = (state) => state.converter.blobDelim;
 export const procDataSelector = (state) => state.converter.procData;
 export const copyOfProcDataSelector = (state) => state.converter.copyOfProcData;
 export const sqlStatementSelector = (state) => state.converter.sqlStatement;

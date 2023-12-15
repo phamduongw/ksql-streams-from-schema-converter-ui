@@ -4,12 +4,12 @@ import {
   procNameSelector,
   schemaNameSelector,
   procTypeSelector,
-  blobDelimiterSelector,
+  blobDelimSelector,
   setProcName,
   setSchemaName,
   setProcType,
   setBlobDelimiter,
-} from '~/redux/slices/converterSlice';
+} from '~/redux/converterSlice';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Form = () => {
   const procName = useSelector(procNameSelector);
   const schemaName = useSelector(schemaNameSelector);
   const procType = useSelector(procTypeSelector);
-  const blobDelimiter = useSelector(blobDelimiterSelector);
+  const blobDelim = useSelector(blobDelimSelector);
 
   const handleChangeProcName = (event) => {
     dispatch(setProcName(event.target.value));
@@ -62,11 +62,11 @@ const Form = () => {
           <option value="BLOB">BLOB</option>
         </select>
       </div>
-      <div className={`col ${procType === 'BLOB' ? 'd-block' : 'd-none'}`}>
+      <div className={`col ${procType == 'BLOB' ? 'd-block' : 'd-none'}`}>
         <input
           type="text"
           placeholder="BLOB delimiter"
-          value={blobDelimiter}
+          value={blobDelim}
           onChange={handleBLOBDelimiter}
           className="form-control"
         />

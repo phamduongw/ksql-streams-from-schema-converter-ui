@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-import { sqlStatementSelector } from '~/redux/slices/converterSlice';
+import { sqlStatementSelector } from '~/redux/converterSlice';
 
 const SqlGenerator = () => {
   const sqlStatement = useSelector(sqlStatementSelector);

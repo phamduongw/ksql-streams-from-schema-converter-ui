@@ -4,13 +4,13 @@ import {
   procNameSelector,
   schemaNameSelector,
   procTypeSelector,
-  blobDelimiterSelector,
+  blobDelimSelector,
   procDataSelector,
   sqlStatementSelector,
   setProcData,
   setCopyOfProcData,
   setSqlStatement,
-} from '~/redux/slices/converterSlice';
+} from '~/redux/converterSlice';
 
 import { getProcDataByKey, getEtlPipeline } from '~/services';
 
@@ -20,17 +20,12 @@ const Generate = () => {
   const procName = useSelector(procNameSelector);
   const schemaName = useSelector(schemaNameSelector);
   const procType = useSelector(procTypeSelector);
-  const blobDelimiter = useSelector(blobDelimiterSelector);
+  const blobDelim = useSelector(blobDelimSelector);
   const procData = useSelector(procDataSelector);
 
   const handleGetEtlData = async () => {
-    let { stmtRaw, stmtMapped, stmtMultival, stmtSink } = await getEtlPipeline(
-      procName,
-      schemaName,
-      procType,
-      blobDelimiter,
-      procData,
-    );
+    const { stmtRaw, stmtMapped, stmtMultival, stmtSink } =
+      await getEtlPipeline(procName, schemaName, procType, blobDelim, procData);
 
     const statements = [stmtRaw, stmtMapped, stmtMultival, stmtSink].filter(
       (stmt) => stmt !== null,

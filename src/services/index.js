@@ -1,60 +1,70 @@
 import axios from 'axios';
 
-const getProcDataByKey = async (schemaName) => {
-  let config = {
-    method: 'get',
-    maxBodyLength: Infinity,
-    url: `http://localhost/api/proc-data?schemaName=${schemaName.toUpperCase()}`,
-  };
+const BASE_URL = 'http://localhost';
+
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  maxBodyLength: Infinity,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+const handleAxiosError = (error, functionName) => {
+  console.error(`Error in ${functionName}:`, error.message);
+  throw error;
+};
+
+const makeRequest = async (config, functionName) => {
   try {
-    const response = await axios.request(config);
-    return response.data.fields
-      .filter((x) => {
-        x.should_parse_sv = '';
-        x.should_parse_mv = '';
-        x.transformation = '';
-        return x.aliases[0].startsWith('c');
-      })
-      .sort((a, b) => {
-        const extractTag = (str) => parseInt(str.replace(/c(\d+).*/, '$1'));
-        return extractTag(a.aliases[0]) - extractTag(b.aliases[0]);
-      });
+    const response = await axiosInstance.request(config);
+    return response.data;
   } catch (error) {
-    console.error('Error in getProcDataByKey:', error.message);
-    throw error;
+    handleAxiosError(error, functionName);
   }
+};
+
+const getProcDataByKey = async (schemaName) => {
+  const config = {
+    method: 'get',
+    url: `/api/proc-data?schemaName=${schemaName.toUpperCase()}`,
+  };
+
+  const result = await makeRequest(config, 'getProcDataByKey');
+
+  return result.fields
+    .filter((x) => {
+      x.should_parse_sv = '';
+      x.should_parse_mv = '';
+      x.transformation = '';
+      return x.aliases[0].startsWith('c');
+    })
+    .sort((a, b) => {
+      const extractTag = (str) => parseInt(str.replace(/c(\d+).*/, '$1'));
+      return extractTag(a.aliases[0]) - extractTag(b.aliases[0]);
+    });
 };
 
 const getEtlPipeline = async (
   procName,
   schemaName,
   procType,
-  blobDelimiter,
+  blobDelim,
   procData,
 ) => {
-  try {
-    const response = await axios.post(
-      'http://localhost/api/etl-pipeline',
-      {
-        procName,
-        schemaName,
-        procType,
-        blobDelimiter,
-        procData,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        maxBodyLength: Infinity,
-      },
-    );
+  const config = {
+    method: 'post',
+    url: '/api/etl-pipeline',
+    data: {
+      procName,
+      schemaName,
+      procType,
+      blobDelim,
+      procData,
+    },
+  };
 
-    return response.data;
-  } catch (error) {
-    console.error('Error in getEtlPipeline:', error.message);
-    throw error;
-  }
+  return await makeRequest(config, 'getEtlPipeline');
 };
 
 export { getProcDataByKey, getEtlPipeline };
