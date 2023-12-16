@@ -30,9 +30,9 @@ const getProcDataByKey = async (schemaName) => {
     url: `/api/proc-data?schemaName=${schemaName.toUpperCase()}`,
   };
 
-  const result = await makeRequest(config, 'getProcDataByKey');
+  const data = await makeRequest(config, 'getProcDataByKey');
 
-  return result.fields
+  return data.fields
     .filter((x) => {
       x.should_parse_sv = '';
       x.should_parse_mv = '';
@@ -67,4 +67,30 @@ const getEtlPipeline = async (
   return await makeRequest(config, 'getEtlPipeline');
 };
 
-export { getProcDataByKey, getEtlPipeline };
+const getAllTemplates = async () => {
+  const config = {
+    method: 'get',
+    url: `/api/template/all`,
+  };
+
+  return await makeRequest(config, 'getAllTemplates');
+};
+
+const updateAllTemplates = async (templateData) => {
+  const config = {
+    method: 'put',
+    url: '/api/template/all',
+    data: {
+      templateData,
+    },
+  };
+
+  return await makeRequest(config, 'updateAllTemplates');
+};
+
+export {
+  getProcDataByKey,
+  getEtlPipeline,
+  getAllTemplates,
+  updateAllTemplates,
+};
