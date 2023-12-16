@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://192.168.100.82:8080';
+const COLLECTION_NAME = 'test_stream_templates';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -56,6 +57,7 @@ const getEtlPipeline = async (
     method: 'post',
     url: '/api/etl-pipeline',
     data: {
+      collectionName: COLLECTION_NAME,
       procName,
       schemaName,
       procType,
@@ -70,7 +72,7 @@ const getEtlPipeline = async (
 const getAllTemplates = async () => {
   const config = {
     method: 'get',
-    url: `/api/template/all`,
+    url: `/api/template/all?collectionName=${COLLECTION_NAME}`,
   };
 
   return await makeRequest(config, 'getAllTemplates');
@@ -81,6 +83,7 @@ const updateAllTemplates = async (templateData) => {
     method: 'put',
     url: '/api/template/all',
     data: {
+      collectionName: COLLECTION_NAME,
       templateData,
     },
   };
