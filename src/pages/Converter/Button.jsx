@@ -6,6 +6,7 @@ import {
   procTypeSelector,
   blobDelimSelector,
   procDataSelector,
+  addFieldToProcData,
   sqlStatementSelector,
   setProcData,
   setCopyOfProcData,
@@ -25,7 +26,13 @@ const Generate = () => {
 
   const handleGetEtlData = async () => {
     const { stmtRaw, stmtMapped, stmtMultival, stmtSink } =
-      await getEtlPipeline(procName, schemaName, procType, blobDelim, procData);
+      await getEtlPipeline(
+        procName,
+        schemaName,
+        procType,
+        blobDelim,
+        procData.filter((item) => item.name !== ''),
+      );
 
     const statements = [stmtRaw, stmtMapped, stmtMultival, stmtSink].filter(
       (stmt) => stmt !== null,
@@ -39,9 +46,36 @@ const Generate = () => {
       <button
         type="button"
         onClick={handleGetEtlData}
+        className="btn btn-success"
+      >
+        Get pipeline
+      </button>
+    </div>
+  );
+};
+
+const AddField = () => {
+  const dispatch = useDispatch();
+
+  const scrollTableToBottom = () => {
+    const table = document.querySelector('.table-responsive');
+    table.scrollTop = table.scrollHeight;
+  };
+
+  const handleAddField = () => {
+    dispatch(addFieldToProcData());
+    dispatch(setCopyOfProcData());
+    setTimeout(scrollTableToBottom);
+  };
+
+  return (
+    <div className="col p-2 d-flex justify-content-center">
+      <button
+        type="button"
+        onClick={handleAddField}
         className="btn btn-secondary"
       >
-        Generate ETL pipeline
+        Add field
       </button>
     </div>
   );
@@ -64,7 +98,7 @@ const Button = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `${schemaName.toUpperCase()}.sql`;
+    link.download = `${schemaName}.sql`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -79,15 +113,16 @@ const Button = () => {
           onClick={handleGetEtlData}
           className="btn btn-primary"
         >
-          Get ETL data
+          Get data
         </button>
       </div>
+      <AddField />
       <Generate />
       <div className="col p-2 d-flex justify-content-center">
         <button
           type="button"
           onClick={handleDownload}
-          className="btn btn-success"
+          className="btn btn-danger"
         >
           Download
         </button>

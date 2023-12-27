@@ -17,14 +17,14 @@ const TRANS = ['string-join', 'parse date', 'parse timestamp'];
 
 const DATA_TYPES = ['string', 'number'];
 
-const InputField = ({ index, field, initValue, isCheckbox }) => {
+const InputField = ({ index, field, initValue, isCheckbox, isUpperCase }) => {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState(initValue);
 
   const handleChangeValue = (event) => {
     const newValue = isCheckbox ? event.target.checked : event.target.value;
-    setValue(newValue);
+    setValue(isUpperCase ? newValue.toUpperCase() : newValue);
     dispatch(
       updateProcData({
         index,
@@ -74,7 +74,7 @@ const SelectField = ({ index, field, initValue }) => {
   );
 };
 
-const DatalistField = ({ index, field, initValue, list }) => {
+const DatalistField = ({ index, field, initValue }) => {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState(initValue);
@@ -95,12 +95,12 @@ const DatalistField = ({ index, field, initValue, list }) => {
     <>
       <input
         type="text"
-        list={list}
+        list={index}
         value={value}
         onChange={handleChangeValue}
         className="form-control"
       />
-      <datalist id={list}>
+      <datalist id={index}>
         {TRANS.map((tran) => (
           <option key={tran}>{tran}</option>
         ))}
@@ -137,9 +137,14 @@ const Table = () => {
               },
               index,
             ) => (
-              <tr key={name}>
+              <tr key={index}>
                 <td>
-                  <InputField index={index} field="name" initValue={name} />
+                  <InputField
+                    index={index}
+                    field="name"
+                    initValue={name}
+                    isUpperCase={true}
+                  />
                 </td>
                 <td>
                   <InputField
@@ -177,7 +182,6 @@ const Table = () => {
                     index={index}
                     field="transformation"
                     initValue={transformation}
-                    list={name}
                   />
                 </td>
               </tr>

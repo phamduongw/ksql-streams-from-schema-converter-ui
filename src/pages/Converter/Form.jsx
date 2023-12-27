@@ -20,10 +20,10 @@ const Form = () => {
   const blobDelim = useSelector(blobDelimSelector);
 
   const handleChangeProcName = (event) => {
-    dispatch(setProcName(event.target.value));
+    dispatch(setProcName(event.target.value.toUpperCase()));
   };
   const handleChangeSchemaName = (event) => {
-    dispatch(setSchemaName(event.target.value));
+    dispatch(setSchemaName(event.target.value.toUpperCase()));
   };
   const handleChangeDataType = (event) => {
     dispatch(setProcType(event.target.value));

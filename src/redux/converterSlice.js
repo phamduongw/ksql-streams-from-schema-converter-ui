@@ -41,6 +41,18 @@ const converterSlice = createSlice({
         state.procData[index][field] = value;
       }
     },
+    addFieldToProcData: (state) => {
+      state.procData.push({
+        aliases: [''],
+        default: null,
+        doc: '',
+        name: '',
+        should_parse_mv: '',
+        should_parse_sv: '',
+        transformation: '',
+        type: ['null', 'string'],
+      });
+    },
     setCopyOfProcData: (state) => {
       state.copyOfProcData = state.procData;
     },
@@ -59,6 +71,7 @@ export const {
   setProcData,
   setCopyOfProcData,
   updateProcData,
+  addFieldToProcData,
   setSqlStatement,
 } = converterSlice.actions;
 

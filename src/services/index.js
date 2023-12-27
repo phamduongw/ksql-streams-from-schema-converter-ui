@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// const BASE_URL = 'http://192.168.100.82:8080';
-
+// Axios
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   maxBodyLength: Infinity,
@@ -24,10 +23,11 @@ const makeRequest = async (config, functionName) => {
   }
 };
 
+// Services
 const getProcDataByKey = async (schemaName) => {
   const config = {
     method: 'get',
-    url: `/api/proc-data?schemaName=${schemaName.toUpperCase()}`,
+    url: `/api/proc-data?schemaName=${schemaName}`,
   };
 
   const data = await makeRequest(config, 'getProcDataByKey');
