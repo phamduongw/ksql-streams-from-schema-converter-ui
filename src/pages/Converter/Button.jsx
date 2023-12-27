@@ -46,7 +46,7 @@ const Generate = () => {
       <button
         type="button"
         onClick={handleGetEtlData}
-        className="btn btn-success"
+        className="btn btn-secondary"
       >
         Get pipeline
       </button>
@@ -73,7 +73,7 @@ const AddField = () => {
       <button
         type="button"
         onClick={handleAddField}
-        className="btn btn-secondary"
+        className="btn btn-success"
       >
         Add field
       </button>
@@ -116,8 +116,8 @@ const Button = () => {
           Get data
         </button>
       </div>
-      <AddField />
       <Generate />
+      <AddField />
       <div className="col p-2 d-flex justify-content-center">
         <button
           type="button"

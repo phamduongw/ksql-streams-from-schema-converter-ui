@@ -15,8 +15,6 @@ const FIELDS = [
 
 const TRANS = ['string-join', 'parse date', 'parse timestamp'];
 
-const DATA_TYPES = ['string', 'number'];
-
 const InputField = ({ index, field, initValue, isCheckbox, isUpperCase }) => {
   const dispatch = useDispatch();
 
@@ -65,11 +63,8 @@ const SelectField = ({ index, field, initValue }) => {
 
   return (
     <select value={value} onChange={handleChangeValue} className="form-select">
-      {DATA_TYPES.map((dataType) => (
-        <option key={dataType} value={dataType}>
-          {dataType}
-        </option>
-      ))}
+      <option value="string">string</option>
+      <option value="double">number</option>
     </select>
   );
 };
