@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { copyOfProcDataSelector, updateProcData } from '~/redux/converterSlice';
@@ -19,6 +19,10 @@ const InputField = ({ index, field, initValue, isCheckbox, isUpperCase }) => {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState(initValue);
+
+  useEffect(() => {
+    setValue(initValue);
+  }, [initValue]);
 
   const handleChangeValue = (event) => {
     const newValue = isCheckbox ? event.target.checked : event.target.value;
@@ -49,6 +53,10 @@ const SelectField = ({ index, field, initValue }) => {
 
   const [value, setValue] = useState(initValue);
 
+  useEffect(() => {
+    setValue(initValue);
+  }, [initValue]);
+
   const handleChangeValue = (event) => {
     const newValue = event.target.value;
     setValue(newValue);
@@ -73,6 +81,10 @@ const DatalistField = ({ index, field, initValue }) => {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState(initValue);
+
+  useEffect(() => {
+    setValue(initValue);
+  }, [initValue]);
 
   const handleChangeValue = (event) => {
     const newValue = event.target.value;
