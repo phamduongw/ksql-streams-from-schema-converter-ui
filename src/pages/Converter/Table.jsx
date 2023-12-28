@@ -13,7 +13,7 @@ const FIELDS = [
   'Transformation',
 ];
 
-const TRANS = ['string-join', 'parse date', 'parse timestamp'];
+const TRANS = ['string-join', 'parse date', 'parse timestamp', 'substring'];
 
 const InputField = ({ index, field, initValue, isCheckbox, isUpperCase }) => {
   const dispatch = useDispatch();
