@@ -27,7 +27,7 @@ const InputField = ({ index, field, initValue, isCheckbox, isUpperCase }) => {
       updateProcData({
         index,
         field,
-        value: newValue,
+        value: isUpperCase ? newValue.toUpperCase() : newValue,
       }),
     );
   };
