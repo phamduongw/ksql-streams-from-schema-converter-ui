@@ -33,11 +33,12 @@ const getProcDataByKey = async (schemaName) => {
   const data = await makeRequest(config, 'getProcDataByKey');
 
   return data.fields
-    .filter((x) => {
-      x.should_parse_sv = '';
-      x.should_parse_mv = '';
-      x.transformation = '';
-      return x.aliases[0].startsWith('c');
+    .filter((field) => {
+      field.should_parse_sv = '';
+      field.should_parse_mv = '';
+      field.should_parse_vs = '';
+      field.transformation = '';
+      return field.aliases[0].startsWith('c');
     })
     .sort((a, b) => {
       const extractTag = (str) => parseInt(str.replace(/c(\d+).*/, '$1'));
