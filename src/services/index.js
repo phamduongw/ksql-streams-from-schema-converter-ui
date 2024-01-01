@@ -35,7 +35,7 @@ const getProcDataByKey = async (schemaName) => {
   return data.fields
     .filter((field) => {
       field.should_parse_sv = '';
-      field.should_parse_mv = '';
+      field.should_parse_vm = '';
       field.should_parse_vs = '';
       field.transformation = '';
       return field.aliases[0].startsWith('c');

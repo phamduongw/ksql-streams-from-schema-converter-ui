@@ -140,7 +140,7 @@ const Table = () => {
                 type,
                 doc,
                 should_parse_sv,
-                should_parse_mv,
+                should_parse_vm,
                 should_parse_vs,
                 transformation,
               },
@@ -181,8 +181,8 @@ const Table = () => {
                   <InputField
                     type="checkbox"
                     index={index}
-                    field="should_parse_mv"
-                    initValue={should_parse_mv}
+                    field="should_parse_vm"
+                    initValue={should_parse_vm}
                     isCheckbox={true}
                   />
                 </td>

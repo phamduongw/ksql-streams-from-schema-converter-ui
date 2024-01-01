@@ -47,7 +47,7 @@ const converterSlice = createSlice({
         default: null,
         doc: '',
         name: '',
-        should_parse_mv: '',
+        should_parse_vm: '',
         should_parse_sv: '',
         transformation: '',
         type: ['null', 'string'],
