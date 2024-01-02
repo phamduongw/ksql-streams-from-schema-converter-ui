@@ -14,7 +14,7 @@ const FIELDS = [
   'Transformation',
 ];
 
-const TRANS = ['string-join', 'parse date', 'parse timestamp', 'substring'];
+const TRANS = ['string-join', 'parse_date', 'parse_timestamp', 'substring'];
 
 const InputField = ({
   copyOfProcData,
