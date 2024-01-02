@@ -16,14 +16,21 @@ const FIELDS = [
 
 const TRANS = ['string-join', 'parse date', 'parse timestamp', 'substring'];
 
-const InputField = ({ index, field, initValue, isCheckbox, isUpperCase }) => {
+const InputField = ({
+  copyOfProcData,
+  index,
+  field,
+  initValue,
+  isCheckbox,
+  isUpperCase,
+}) => {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState(initValue);
 
   useEffect(() => {
     setValue(initValue);
-  }, [initValue]);
+  }, [copyOfProcData]);
 
   const handleChangeValue = (event) => {
     const newValue = isCheckbox ? event.target.checked : event.target.value;
@@ -49,14 +56,14 @@ const InputField = ({ index, field, initValue, isCheckbox, isUpperCase }) => {
   return <input {...inputProps} />;
 };
 
-const SelectField = ({ index, field, initValue }) => {
+const SelectField = ({ copyOfProcData, index, field, initValue }) => {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState(initValue);
 
   useEffect(() => {
     setValue(initValue);
-  }, [initValue]);
+  }, [copyOfProcData]);
 
   const handleChangeValue = (event) => {
     const newValue = event.target.value;
@@ -78,14 +85,14 @@ const SelectField = ({ index, field, initValue }) => {
   );
 };
 
-const DatalistField = ({ index, field, initValue }) => {
+const DatalistField = ({ copyOfProcData, index, field, initValue }) => {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState(initValue);
 
   useEffect(() => {
     setValue(initValue);
-  }, [initValue]);
+  }, [copyOfProcData]);
 
   const handleChangeValue = (event) => {
     const newValue = event.target.value;
@@ -149,6 +156,7 @@ const Table = () => {
               <tr key={index}>
                 <td>
                   <InputField
+                    copyOfProcData={copyOfProcData}
                     index={index}
                     field="name"
                     initValue={name}
@@ -157,19 +165,31 @@ const Table = () => {
                 </td>
                 <td>
                   <InputField
+                    copyOfProcData={copyOfProcData}
                     index={index}
                     field="aliases"
                     initValue={aliases[0]}
                   />
                 </td>
                 <td>
-                  <SelectField index={index} field="type" initValue={type[1]} />
-                </td>
-                <td>
-                  <InputField index={index} field="doc" initValue={doc} />
+                  <SelectField
+                    copyOfProcData={copyOfProcData}
+                    index={index}
+                    field="type"
+                    initValue={type[1]}
+                  />
                 </td>
                 <td>
                   <InputField
+                    copyOfProcData={copyOfProcData}
+                    index={index}
+                    field="doc"
+                    initValue={doc}
+                  />
+                </td>
+                <td>
+                  <InputField
+                    copyOfProcData={copyOfProcData}
                     type="checkbox"
                     index={index}
                     field="should_parse_sv"
@@ -179,6 +199,7 @@ const Table = () => {
                 </td>
                 <td>
                   <InputField
+                    copyOfProcData={copyOfProcData}
                     type="checkbox"
                     index={index}
                     field="should_parse_vm"
@@ -188,6 +209,7 @@ const Table = () => {
                 </td>
                 <td>
                   <InputField
+                    copyOfProcData={copyOfProcData}
                     type="checkbox"
                     index={index}
                     field="should_parse_vs"
@@ -197,6 +219,7 @@ const Table = () => {
                 </td>
                 <td>
                   <DatalistField
+                    copyOfProcData={copyOfProcData}
                     index={index}
                     field="transformation"
                     initValue={transformation}
