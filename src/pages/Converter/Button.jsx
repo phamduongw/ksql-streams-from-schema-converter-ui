@@ -25,7 +25,7 @@ const Generate = () => {
   const procData = useSelector(procDataSelector);
 
   const handleGetEtlData = async () => {
-    const { stmtRaw, stmtMapped, stmtMultival, stmtSink } =
+    const { stmtRaw, stmtMapped, stmtMultival, stmtSink, stmtDdl } =
       await getEtlPipeline(
         procName,
         schemaName,
@@ -34,11 +34,17 @@ const Generate = () => {
         procData.filter((item) => item.name !== ''),
       );
 
-    const statements = [stmtRaw, stmtMapped, stmtMultival, stmtSink].filter(
-      (stmt) => stmt !== null,
-    );
+    const statements = [
+      stmtRaw,
+      stmtMapped,
+      stmtMultival,
+      stmtSink,
+      stmtDdl,
+    ].filter((statement) => statement !== undefined);
 
-    dispatch(setSqlStatement(statements.join('\n')));
+    console.log(statements);
+
+    dispatch(setSqlStatement(statements.join('\n\n')));
   };
 
   return (
