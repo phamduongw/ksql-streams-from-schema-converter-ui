@@ -78,12 +78,18 @@ const Template = () => {
     fetchData();
   }, []);
 
+  const scrollTableToBottom = () => {
+    const table = document.querySelector('.table-responsive');
+    table.scrollTop = table.scrollHeight;
+  };
+
   const handleAddTemplate = () => {
     dispatch(addTemplateData());
+    setTimeout(scrollTableToBottom);
   };
 
   return (
-    <main className="container-fluid">
+    <div className="table-responsive" style={{ maxHeight: '100vh' }}>
       <table className="table">
         <thead style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
           <tr>
@@ -91,7 +97,15 @@ const Template = () => {
             <th scope="col">
               <div className="d-flex justify-content-between align-items-center">
                 <span>TEMPLATE</span>
-                <UpdateButton fetchData={fetchData} />
+                <span>
+                  <button
+                    onClick={handleAddTemplate}
+                    className="btn btn-success me-3"
+                  >
+                    Add Template
+                  </button>
+                  <UpdateButton fetchData={fetchData} />
+                </span>
               </div>
             </th>
           </tr>
@@ -118,12 +132,7 @@ const Template = () => {
           ))}
         </tbody>
       </table>
-      <div className="d-flex justify-content-center pb-3">
-        <button onClick={handleAddTemplate} className="btn btn-success">
-          Add Template
-        </button>
-      </div>
-    </main>
+    </div>
   );
 };
 
