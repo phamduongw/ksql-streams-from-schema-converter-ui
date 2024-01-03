@@ -11,7 +11,10 @@ import {
   updateTemplateData,
   addTemplateData,
 } from '~/redux/templateSlice';
-import { updateAllTemplates } from '../../services';
+
+import { updateAllTemplates } from '~/services';
+
+import { downloadFile } from '~/utils';
 
 const TextField = ({ index, field, initValue, type }) => {
   const dispatch = useDispatch();
@@ -55,7 +58,29 @@ const UpdateButton = ({ fetchData }) => {
 
   return (
     <button onClick={handleSaveTemplate} className="btn btn-primary">
-      Save Templates
+      Save Template
+    </button>
+  );
+};
+
+const DownloadButton = () => {
+  const templateData = useSelector(templateDataSelector);
+
+  const handleDownloadTemplate = () => {
+    downloadFile(
+      'text/sql',
+      `template.sql`,
+      templateData
+        .map(({ template_name, template }) => {
+          return `-- ${template_name}\n${template}`;
+        })
+        .join('\n\n\n'),
+    );
+  };
+
+  return (
+    <button onClick={handleDownloadTemplate} className="btn btn-secondary">
+      Download Template
     </button>
   );
 };
@@ -94,14 +119,17 @@ const Template = () => {
       <table className="table">
         <thead style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
           <tr>
-            <th scope="col">KEY</th>
+            <th scope="col" className="align-middle">
+              KEY
+            </th>
             <th scope="col">
               <div className="d-flex justify-content-between align-items-center">
                 <span>TEMPLATE</span>
                 <span>
+                  <DownloadButton />
                   <button
                     onClick={handleAddTemplate}
-                    className="btn btn-success me-3"
+                    className="btn btn-success mx-3"
                   >
                     Add Template
                   </button>

@@ -179,7 +179,7 @@ const Table = () => {
                     index={index}
                     field="aliases"
                     initValue={aliases[0]}
-                    style={{ marginTop: 0, height: '38px', width: '95px' }}
+                    style={{ marginTop: 0, height: '38px', width: '111px' }}
                   />
                 </td>
                 <td>

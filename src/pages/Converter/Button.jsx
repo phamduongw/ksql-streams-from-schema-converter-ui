@@ -15,6 +15,25 @@ import {
 
 import { getProcDataByKey, getEtlPipeline } from '~/services';
 
+import { downloadFile } from '~/utils';
+
+const Download = () => {
+  const procName = useSelector(procNameSelector);
+  const sqlStatement = useSelector(sqlStatementSelector);
+
+  const handleDownload = () => {
+    downloadFile('text/sql', `${procName}.sql`, sqlStatement);
+  };
+
+  return (
+    <div className="col p-2 d-flex justify-content-center">
+      <button type="button" onClick={handleDownload} className="btn btn-danger">
+        Download
+      </button>
+    </div>
+  );
+};
+
 const Generate = () => {
   const dispatch = useDispatch();
 
@@ -87,54 +106,35 @@ const AddField = () => {
   );
 };
 
-const Button = () => {
+const GetData = () => {
   const dispatch = useDispatch();
-
   const schemaName = useSelector(schemaNameSelector);
-  const sqlStatement = useSelector(sqlStatementSelector);
 
   const handleGetEtlData = async () => {
     let data = await getProcDataByKey(schemaName);
     dispatch(setProcData(data));
     dispatch(setCopyOfProcData());
   };
-
-  const handleDownload = () => {
-    const blob = new Blob([sqlStatement], { type: 'text/sql' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${schemaName}.sql`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
-
   return (
-    <div className="row">
-      <div className="col p-2 d-flex justify-content-center">
-        <button
-          type="button"
-          onClick={handleGetEtlData}
-          className="btn btn-primary"
-        >
-          Get data
-        </button>
-      </div>
-      <Generate />
-      <AddField />
-      <div className="col p-2 d-flex justify-content-center">
-        <button
-          type="button"
-          onClick={handleDownload}
-          className="btn btn-danger"
-        >
-          Download
-        </button>
-      </div>
+    <div className="col p-2 d-flex justify-content-center">
+      <button
+        type="button"
+        onClick={handleGetEtlData}
+        className="btn btn-primary"
+      >
+        Get data
+      </button>
     </div>
   );
 };
+
+const Button = () => (
+  <div className="row">
+    <GetData />
+    <Generate />
+    <AddField />
+    <Download />
+  </div>
+);
 
 export default Button;
