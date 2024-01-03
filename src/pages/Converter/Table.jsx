@@ -6,7 +6,7 @@ import { copyOfProcDataSelector, updateProcData } from '~/redux/converterSlice';
 const FIELDS = [
   'Name',
   'Alias',
-  'Data Type',
+  'Type',
   'Doc',
   'SV',
   'VM',
