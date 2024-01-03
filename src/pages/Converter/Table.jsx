@@ -15,7 +15,13 @@ const FIELDS = [
   'Nested',
 ];
 
-const TRANS = ['string-join', 'parse_date', 'parse_timestamp', 'substring'];
+const TRANS = [
+  'string-join',
+  'parse_date',
+  'parse_timestamp',
+  'substring',
+  '[1]',
+];
 
 const InputField = ({
   copyOfProcData,
