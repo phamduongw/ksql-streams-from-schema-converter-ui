@@ -21,6 +21,7 @@ const TRANS = [
   'parse_timestamp',
   'substring',
   '[1]',
+  'seab_field',
 ];
 
 const InputField = ({
