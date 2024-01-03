@@ -50,6 +50,7 @@ const UpdateButton = ({ fetchData }) => {
   const handleSaveTemplate = async () => {
     await updateAllTemplates(templateData);
     fetchData();
+    alert('Saved');
   };
 
   return (
