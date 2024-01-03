@@ -12,6 +12,7 @@ const FIELDS = [
   'VM',
   'VS',
   'Transformation',
+  'Nested',
 ];
 
 const TRANS = ['string-join', 'parse_date', 'parse_timestamp', 'substring'];
@@ -23,6 +24,7 @@ const InputField = ({
   initValue,
   isCheckbox,
   isUpperCase,
+  style,
 }) => {
   const dispatch = useDispatch();
 
@@ -49,7 +51,7 @@ const InputField = ({
     value: isCheckbox ? undefined : value,
     checked: isCheckbox ? value : undefined,
     onChange: handleChangeValue,
-    style: isCheckbox ? { marginTop: 0, height: '38px', width: '38px' } : {},
+    style,
     className: isCheckbox ? 'form-check-input' : 'form-control',
   };
 
@@ -150,6 +152,7 @@ const Table = () => {
                 should_parse_vm,
                 should_parse_vs,
                 transformation,
+                nested,
               },
               index,
             ) => (
@@ -169,6 +172,7 @@ const Table = () => {
                     index={index}
                     field="aliases"
                     initValue={aliases[0]}
+                    style={{ marginTop: 0, height: '38px', width: '95px' }}
                   />
                 </td>
                 <td>
@@ -185,6 +189,7 @@ const Table = () => {
                     index={index}
                     field="doc"
                     initValue={doc}
+                    style={{ marginTop: 0, height: '38px', width: '60px' }}
                   />
                 </td>
                 <td>
@@ -195,6 +200,7 @@ const Table = () => {
                     field="should_parse_sv"
                     initValue={should_parse_sv}
                     isCheckbox={true}
+                    style={{ marginTop: 0, height: '38px', width: '38px' }}
                   />
                 </td>
                 <td>
@@ -205,6 +211,7 @@ const Table = () => {
                     field="should_parse_vm"
                     initValue={should_parse_vm}
                     isCheckbox={true}
+                    style={{ marginTop: 0, height: '38px', width: '38px' }}
                   />
                 </td>
                 <td>
@@ -215,6 +222,7 @@ const Table = () => {
                     field="should_parse_vs"
                     initValue={should_parse_vs}
                     isCheckbox={true}
+                    style={{ marginTop: 0, height: '38px', width: '38px' }}
                   />
                 </td>
                 <td>
@@ -223,6 +231,14 @@ const Table = () => {
                     index={index}
                     field="transformation"
                     initValue={transformation}
+                  />
+                </td>
+                <td>
+                  <InputField
+                    copyOfProcData={copyOfProcData}
+                    index={index}
+                    field="nested"
+                    initValue={nested}
                   />
                 </td>
               </tr>

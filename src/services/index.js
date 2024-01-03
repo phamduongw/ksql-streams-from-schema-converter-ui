@@ -38,6 +38,7 @@ const getProcDataByKey = async (schemaName) => {
       field.should_parse_vm = '';
       field.should_parse_vs = '';
       field.transformation = '';
+      field.nested = '';
       return field.aliases[0].startsWith('c');
     })
     .sort((a, b) => {
