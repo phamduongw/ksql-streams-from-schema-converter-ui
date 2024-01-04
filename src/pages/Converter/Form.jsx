@@ -29,7 +29,7 @@ const Form = () => {
     dispatch(setProcType(event.target.value));
   };
   const handleBLOBDelimiter = (event) => {
-    dispatch(setBlobDelimiter(event.target.value));
+    dispatch(setBlobDelimiter(event.target.value.toUpperCase()));
   };
 
   return (
