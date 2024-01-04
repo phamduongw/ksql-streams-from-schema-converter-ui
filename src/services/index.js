@@ -32,6 +32,10 @@ const getProcDataByKey = async (schemaName) => {
 
   const data = await makeRequest(config, 'getProcDataByKey');
 
+  if (!data) {
+    alert('Table not found!');
+  }
+
   return data.fields
     .filter((field) => {
       field.should_parse_sv = '';
