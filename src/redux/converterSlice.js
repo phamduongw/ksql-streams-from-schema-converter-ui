@@ -7,7 +7,7 @@ const converterSlice = createSlice({
     procName: '',
     schemaName: '',
     procType: 'XML',
-    blobDelim: '',
+    blobDelim: 'FE',
     procData: [],
     copyOfProcData: [],
     sqlStatement: '',

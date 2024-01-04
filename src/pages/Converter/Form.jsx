@@ -29,7 +29,7 @@ const Form = () => {
     dispatch(setProcType(event.target.value));
   };
   const handleBLOBDelimiter = (event) => {
-    dispatch(setBlobDelimiter(event.target.value.toUpperCase()));
+    dispatch(setBlobDelimiter(event.target.value));
   };
 
   return (
@@ -63,13 +63,15 @@ const Form = () => {
         </select>
       </div>
       <div className={`col ${procType == 'BLOB' ? 'd-block' : 'd-none'}`}>
-        <input
-          type="text"
-          placeholder="BLOB delimiter"
+        <select
           value={blobDelim}
           onChange={handleBLOBDelimiter}
-          className="form-control"
-        />
+          className="form-select"
+        >
+          <option value="FE">FE</option>
+          <option value="FEFD">FEFD</option>
+          <option value="SPLIT">SPLIT</option>
+        </select>
       </div>
     </div>
   );
