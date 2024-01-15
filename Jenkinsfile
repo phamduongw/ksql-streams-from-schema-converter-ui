@@ -26,7 +26,14 @@ pipeline {
         stage("Deploy") {
             steps {
                 sh "docker run -d -p 1902:80 --name ${DOCKER_CONTAINER_NAME} ${DOCKER_CONTAINER_NAME}:${DOCKER_CONTAINER_TAG}"
+                sh 'docker image prune -f'
             }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
