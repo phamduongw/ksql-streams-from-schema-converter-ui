@@ -36,6 +36,8 @@ const getProcDataByKey = async (schemaName) => {
     alert('Table not found!');
   }
 
+  const regex = /^c(\d*)(?:_m(\d*))*$/;
+
   return data.fields
     .filter((field) => {
       field.should_parse_sv = '';
@@ -46,8 +48,15 @@ const getProcDataByKey = async (schemaName) => {
       return field.aliases[0].startsWith('c');
     })
     .sort((a, b) => {
-      const extractTag = (str) => parseInt(str.replace(/c(\d+).*/, '$1'));
-      return extractTag(a.aliases[0]) - extractTag(b.aliases[0]);
+      const matchesA = a.aliases[0].match(regex);
+      const matchesB = b.aliases[0].match(regex);
+      if (matchesA[1] !== matchesB[1]) {
+        return matchesA[1] - matchesB[1];
+      } else {
+        matchesA[2] = matchesA[2] || 0;
+        matchesB[2] = matchesB[2] || 0;
+        return matchesA[2] - matchesB[2];
+      }
     });
 };
 
