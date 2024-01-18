@@ -52,6 +52,7 @@ const converterSlice = createSlice({
         should_parse_vs: '',
         transformation: '',
         nested: '',
+        isAddedField: true,
         type: ['null', 'string'],
       });
     },
